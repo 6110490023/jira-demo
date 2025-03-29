@@ -5,11 +5,11 @@ import { motion } from "framer-motion";
 import { Card } from "../constant/types";
 
 interface AddCardProps {
-    column: string;
+  status: string;
     setCards: React.Dispatch<React.SetStateAction<Card[]>>;
 }
 
-const AddCard: React.FC<AddCardProps> = ({ column, setCards }) => {
+const AddCard: React.FC<AddCardProps> = ({ status, setCards }) => {
     const [text, setText] = useState("");
     const [adding, setAdding] = useState(false);
 
@@ -17,7 +17,17 @@ const AddCard: React.FC<AddCardProps> = ({ column, setCards }) => {
         e.preventDefault();
         if (!text.trim()) return;
 
-        setCards((prev) => [...prev, { column, title: text.trim(), id: Math.random().toString() }]);
+        setCards((prev) => [
+          ...prev, 
+          { 
+            id: ((prev.length)+ 1).toString(), // หรือใช้ uuid() ถ้าติดตั้งไลบรารี uuid
+            title: text.trim(), 
+            status, 
+            priority: 'Medium', // ค่าเริ่มต้น
+            startDate: new Date().toISOString().split('T')[0], // วันที่ปัจจุบัน
+            endDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0], // +7 วัน
+          }
+        ]);
         setAdding(false);
     };
 

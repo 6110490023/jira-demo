@@ -14,10 +14,10 @@ const Board: React.FC<BoadProps> = ( { cards, setCards }) => {
   },[cards])
   return (
     <div className="flex h-full w-full gap-3 overflow-scroll p-12">
-      <Column title="Backlog" column={STATUS_CARD.BACKLOG} headingColor="text-neutral-500" cards={cards} setCards={setCards} />
-      <Column title="Todo" column={STATUS_CARD.TODO} headingColor="text-yellow-200" cards={cards} setCards={setCards} />
-      <Column title="In progress" column={STATUS_CARD.IN_PROGRESS}  headingColor="text-blue-200" cards={cards} setCards={setCards} />
-      <Column title="Done" column={STATUS_CARD.DONE} headingColor="text-emerald-200" cards={cards} setCards={setCards} />
+      <Column title="Backlog" status={STATUS_CARD.BACKLOG} headingColor="text-neutral-500" cards={cards} setCards={setCards} />
+      <Column title="Todo" status={STATUS_CARD.TODO} headingColor="text-yellow-200" cards={cards} setCards={setCards} />
+      <Column title="In progress" status={STATUS_CARD.IN_PROGRESS}  headingColor="text-blue-200" cards={cards} setCards={setCards} />
+      <Column title="Done" status={STATUS_CARD.DONE} headingColor="text-emerald-200" cards={cards} setCards={setCards} />
       <BurnBarrel setCards={setCards} />
     </div>
   );

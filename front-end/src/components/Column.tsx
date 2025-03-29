@@ -5,7 +5,7 @@ import CardComponent from "./Card";
 import  DropIndicator  from "./DropIndicator"
 import AddCard from "./AddCard";
 
-const Column: React.FC<ColumnProps> = ({ title, headingColor, cards, column, setCards }) => {
+const Column: React.FC<ColumnProps> = ({ title, headingColor, cards, status, setCards }) => {
   const [active, setActive] = useState(false);
 
   const handleDragStart = (e: React.DragEvent, card: Card) => {
@@ -14,7 +14,7 @@ const Column: React.FC<ColumnProps> = ({ title, headingColor, cards, column, set
     
   };
   const getIndicators = () => {
-    return Array.from(document.querySelectorAll(`[data-column="${column}"]`)); // Get all drop indicators for the column
+    return Array.from(document.querySelectorAll(`[data-status="${status}"]`)); // Get all drop indicators for the column
   };
   
   const getNearestIndicator = (e: React.DragEvent, indicators: any[]) => {
@@ -56,7 +56,7 @@ const Column: React.FC<ColumnProps> = ({ title, headingColor, cards, column, set
 
       let cardToTransfer = copy.find((c) => c.id === cardId);
       if (!cardToTransfer) return;
-      cardToTransfer = { ...cardToTransfer, column };
+      cardToTransfer = { ...cardToTransfer, status };
 
       copy = copy.filter((c) => c.id !== cardId);
 
@@ -106,7 +106,7 @@ const Column: React.FC<ColumnProps> = ({ title, headingColor, cards, column, set
 
   
 
-  const filteredCards = cards.filter((c) => c.column === column);
+  const filteredCards = cards.filter((c) => c.status === status);
   
   return (
     <div className="w-56 shrink-0">
@@ -125,8 +125,8 @@ const Column: React.FC<ColumnProps> = ({ title, headingColor, cards, column, set
         {filteredCards.map((c) => (
           <CardComponent key={c.id} {...c} handleDragStart={handleDragStart} />
         ))}
-        <DropIndicator beforeId={null} column={column} />
-        <AddCard column={column} setCards={setCards}   />
+        <DropIndicator beforeId={null} status={status} />
+        <AddCard status={status} setCards={setCards}   />
       </div>
       
     </div>
