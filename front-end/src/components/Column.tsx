@@ -42,38 +42,69 @@ const Column: React.FC<ColumnProps> = ({ title, headingColor, cards, column, set
   };
   const handleDragEnd = (e: React.DragEvent) => {
     const cardId = e.dataTransfer.getData("cardId");
-    const filterCard = cards.filter((c) => c.id !== cardId);
-    const selectedCard = cards.find((c) => c.id === cardId);
-  
-    if (!selectedCard) return; 
-  
-    const indicators = getIndicators(); 
-    const { element } = getNearestIndicator(e, indicators);
-  
-    const before = element?.dataset?.before || "-1"; 
-  
-    if (before !== cardId) {
-      let newCards = [...filterCard];
-        const moveToBack = before === "-1";
-      if (moveToBack) {
-        newCards.push(selectedCard); 
-      } else {
-        const insertAtIndex = newCards.findIndex((c) => c.id === before);
-        if (insertAtIndex === -1) return;
-        newCards.splice(insertAtIndex, 0, selectedCard);
-      }
-  
-      setCards(newCards);
-    }
-  
+
     setActive(false);
+    clearHighlights(null);
+
+    const indicators = getIndicators();
+    const { element } = getNearestIndicator(e, indicators);
+
+    const before = element.dataset.before || "-1";
+
+    if (before !== cardId) {
+      let copy = [...cards];
+
+      let cardToTransfer = copy.find((c) => c.id === cardId);
+      if (!cardToTransfer) return;
+      cardToTransfer = { ...cardToTransfer, column };
+
+      copy = copy.filter((c) => c.id !== cardId);
+
+      const moveToBack = before === "-1";
+
+      if (moveToBack) {
+        copy.push(cardToTransfer);
+      } else {
+        const insertAtIndex = copy.findIndex((el) => el.id === before);
+        if (insertAtIndex === undefined) return;
+
+        copy.splice(insertAtIndex, 0, cardToTransfer);
+      }
+
+      setCards(copy);
+    }
+  };
+
+  const highlightIndicator = (e:any) => {
+    const indicators = getIndicators();
+
+    clearHighlights(indicators);
+
+    const el = getNearestIndicator(e, indicators);
+
+    el.element.style.opacity = "1";
   };
   
+  const clearHighlights = (els:any) => {
+    const indicators = els || getIndicators();
+
+    indicators.forEach((i:any) => {
+      i.style.opacity = "0";
+    });
+  };
 
   const handleDragOver = (e: React.DragEvent) => {
     e.preventDefault();
+    highlightIndicator(e);
     setActive(true);
   };
+
+  const handleDragLeave = () => {
+    clearHighlights(null);
+    setActive(false);
+  };
+
+  
 
   const filteredCards = cards.filter((c) => c.column === column);
   
@@ -86,6 +117,7 @@ const Column: React.FC<ColumnProps> = ({ title, headingColor, cards, column, set
       <div
         onDrop={handleDragEnd}
         onDragOver={handleDragOver}
+        onDragLeave={handleDragLeave}
         className={`h-full w-full transition-colors ${
           active ? "bg-neutral-800/50" : "bg-neutral-800/0"
         }`}
@@ -96,6 +128,7 @@ const Column: React.FC<ColumnProps> = ({ title, headingColor, cards, column, set
         <DropIndicator beforeId={null} column={column} />
         <AddCard column={column} setCards={setCards}   />
       </div>
+      
     </div>
   );
 };

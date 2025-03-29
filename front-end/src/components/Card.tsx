@@ -11,7 +11,7 @@ interface CardProps extends Card {
 const CardComponent: React.FC<CardProps> = ({ title, id, column, handleDragStart }) => {
   return (
     <>
-    {/* <DropIndicator beforeId={id} column={column} /> */}
+    <DropIndicator beforeId={id} column={column} />
     <motion.div
       layout
       layoutId={id}

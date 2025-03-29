@@ -6,7 +6,7 @@ interface DropIndicatorProps {
 }
 
 const DropIndicator: React.FC<DropIndicatorProps> = ({ beforeId, column }) => {
-    console.log(column);
+    console.log(beforeId);
     
     return (
         <div
@@ -14,7 +14,6 @@ const DropIndicator: React.FC<DropIndicatorProps> = ({ beforeId, column }) => {
             data-column={column}
             className="my-0.5 h-0.5 w-full bg-violet-400 opacity-0"
         >
-        กูไม่ออก
         </div>
     );
 };

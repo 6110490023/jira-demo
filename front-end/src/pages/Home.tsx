@@ -4,7 +4,7 @@ import { Card } from "../constant/types";
 import { STATUS_CARD } from "../constant/typeCard";
 
 const Home: React.FC = () => {
-
+  //TODO : อ่าน Logic ให้เข้าใจทั้งหมด
   const [cards, setCards] = useState<Card[]>([]);
   
   useEffect(()=>{
