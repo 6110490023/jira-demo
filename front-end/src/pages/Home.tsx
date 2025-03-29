@@ -7,9 +7,11 @@ import DropdownCust from "../components/DropdownCust";
 const Home: React.FC = () => {
 
   const [cards, setCards] = useState<Card[]>([]);
-  // const [filtercards, setFilterCards] = useState<Card[]>([]);
+  const [filtercards, setFilterCards] = useState<Card[]>([]);
   const [filterStatus,setFilterStatus] = useState<string>("");
   const [filterPriority,setFilterPriority] = useState<string>("");
+
+
   const statusOptions = [
     { value: STATUS_CARD.BACKLOG, label: "Backlog" },
     { value: STATUS_CARD.TODO, label: "To Do" },
@@ -32,15 +34,32 @@ const Home: React.FC = () => {
 
     ];
     setCards(mockCards)
+    setFilterCards(mockCards)
   },[])
-  
+
+  useEffect(()=>{
+    if ( filterStatus !=="" || filterPriority !== "") {
+      var tempFilter : Card[] =[]
+      if (filterStatus !=="") {
+        tempFilter =  cards.filter((c)=> (c.status === filterStatus) )
+      } 
+      if (filterPriority !=="") {
+        tempFilter =  cards.filter((c)=> (c.priority === filterPriority) )
+      }
+      setFilterCards(tempFilter);
+    }
+    else{
+      setFilterCards(cards);
+    }
+    
+  },[filterStatus,cards,filterPriority])
   return (
       <div className="h-screen w-full bg-neutral-900 text-neutral-50">
         <div className="p-4 flex space-x-4">
         <DropdownCust label="Status" options={statusOptions} onSelect={(value) => setFilterStatus(value)} defaultValue="" />
         <DropdownCust label="Priority" options={priorityOptions} onSelect={(value) => setFilterPriority(value)} defaultValue="" />
       </div>
-      <Board cards={cards} setCards={setCards}/>
+      <Board cards={filtercards} setCards={setCards}/>
     </div>
   );
 };
