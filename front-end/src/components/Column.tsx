@@ -116,7 +116,7 @@ const Column: React.FC<ColumnProps> = ({ title, headingColor, cards, status, set
   const filteredCards = cards.filter((c) => c.status === status);
   
   return (
-    <div className="max-w-[14rem] min-w-56">
+    <div className="w-full min-w-80">
       <div className="mb-3 flex items-center justify-between">
         <h3 className={`font-medium ${headingColor}`}>{title}</h3>
         <span className="rounded text-sm text-neutral-400">{filteredCards.length}</span>

@@ -57,7 +57,7 @@ const Home: React.FC = () => {
     
   },[filterStatus,cards,filterPriority])
   return (
-      <div className="w-full bg-neutral-900 text-neutral-50">
+      <div className="min-h-screen w-full bg-neutral-900 text-neutral-50">
         <div className="p-4 flex space-x-4">
         <DropdownCust label="Status" options={statusOptions} onSelect={(value) => setFilterStatus(value)} defaultValue="" />
         <DropdownCust label="Priority" options={priorityOptions} onSelect={(value) => setFilterPriority(value)} defaultValue="" />

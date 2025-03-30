@@ -1,7 +1,7 @@
 export const STATUS_CARD = {
     BACKLOG:"backlog",
     TODO : "todo",
-    IN_PROGRESS:"doing",
+    IN_PROGRESS:"in progress",
     DONE:"done"
 
 }

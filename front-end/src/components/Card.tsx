@@ -79,41 +79,49 @@ const CardComponent: React.FC<CardProps> = (
           <input
             type="text"
             name="title"
+            autoFocus
             placeholder="title"
             value={card.title}
             onChange={handleChangeInput}
             className="text-sm text-neutral-100 font-bold p-1 bg-neutral-700 rounded mb-2"
           />
-          <p className="text-sm text-gray-400">📌 Status: {status}</p>
-          <label htmlFor="priority" className="text-sm text-yellow-400">Priority:</label>
-          <select
-            id="priority"
-            name="priority"
-            value={card.priority}
-            onChange={handleChangeSelect}
-            className="text-sm text-yellow-400 p-1 bg-neutral-700 rounded mb-2"
-          >
-            <option value={PRIORITY.LOW}>{PRIORITY.LOW}</option>
-            <option value={PRIORITY.MEDIUM}>{PRIORITY.MEDIUM}</option>
-            <option value={PRIORITY.HIGH}>{PRIORITY.HIGH}</option>
-          </select>
+          <p className="text-sm text-gray-400pl-3 pt-1 pb-1">Status: {status}</p>
+          <div >
+            <label htmlFor="priority" className="text-sm text-yellow-400">Priority: </label>
+            <select
+              id="priority"
+              name="priority"
+              value={card.priority}
+              onChange={handleChangeSelect}
+              className="text-sm text-yellow-400 p-1 bg-neutral-700 rounded mb-2"
+            >
+              <option value={PRIORITY.LOW}>{PRIORITY.LOW}</option>
+              <option value={PRIORITY.MEDIUM}>{PRIORITY.MEDIUM}</option>
+              <option value={PRIORITY.HIGH}>{PRIORITY.HIGH}</option>
+            </select>
+          </div>
 
-          <input
-            type="date"
-            name="startDate"
-            placeholder="startDate"
-            value={card.startDate}
-            onChange={handleChangeInput}
-            className="text-sm text-green-400 p-1 bg-neutral-700 rounded mb-2"
-          />
-          <input
-            type="date"
-            name="endDate"
-            placeholder="endDate"
-            value={card.endDate}
-            onChange={handleChangeInput}
-            className="text-sm text-red-400 p-1 bg-neutral-700 rounded mb-2"
-          />
+          <div>
+            <input
+              type="date"
+              name="startDate"
+              placeholder="startDate"
+              value={card.startDate}
+              onChange={handleChangeInput}
+              className="text-sm text-green-400 p-1 bg-neutral-700 rounded mb-2"
+            />
+          </div>
+          <div>
+            <input
+              type="date"
+              name="endDate"
+              placeholder="endDate"
+              value={card.endDate}
+              onChange={handleChangeInput}
+              className="text-sm text-red-400 p-1 bg-neutral-700 rounded mb-2"
+            />
+          </div>
+
           <div className="flex justify-end">
             <button
               className="mt-2 mr-2 text-sm text-red-400"
