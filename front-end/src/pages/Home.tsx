@@ -3,7 +3,6 @@ import Board from "../components/Board";
 import { Card } from "../constant/types";
 import { STATUS_CARD, PRIORITY } from "../constant/typeCard";
 import DropdownCust from "../components/DropdownCust";
-import { label } from "framer-motion/client";
 
 const Home: React.FC = () => {
 
@@ -58,7 +57,7 @@ const Home: React.FC = () => {
     
   },[filterStatus,cards,filterPriority])
   return (
-      <div className="h-screen w-full bg-neutral-900 text-neutral-50">
+      <div className="w-full bg-neutral-900 text-neutral-50">
         <div className="p-4 flex space-x-4">
         <DropdownCust label="Status" options={statusOptions} onSelect={(value) => setFilterStatus(value)} defaultValue="" />
         <DropdownCust label="Priority" options={priorityOptions} onSelect={(value) => setFilterPriority(value)} defaultValue="" />

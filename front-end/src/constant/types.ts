@@ -18,5 +18,7 @@ export interface ColumnProps {
   headingColor: string;
   status: string;
   cards: Card[];
+  setDragLock: React.Dispatch<React.SetStateAction<boolean>>;
+  dragLock: boolean;
   setCards: React.Dispatch<React.SetStateAction<Card[]>>;
 }

@@ -5,13 +5,20 @@ import CardComponent from "./Card";
 import  DropIndicator  from "./DropIndicator"
 import AddCard from "./AddCard";
 
-const Column: React.FC<ColumnProps> = ({ title, headingColor, cards, status, setCards }) => {
+const Column: React.FC<ColumnProps> = ({ title, headingColor, cards, status, setCards, dragLock,setDragLock }) => {
   const [active, setActive] = useState(false);
 
+
+  const handleSaveChange = ( card: Card) => {
+    let copy = [...cards];
+    copy = copy.map((c)=>{
+      return (c.id === card.id)? card:c
+    })
+    setCards(copy)
+    
+  };
   const handleDragStart = (e: React.DragEvent, card: Card) => {
     e.dataTransfer.setData("cardId", card.id);
-    console.log(card.id);
-    
   };
   const getIndicators = () => {
     return Array.from(document.querySelectorAll(`[data-status="${status}"]`)); // Get all drop indicators for the column
@@ -109,7 +116,7 @@ const Column: React.FC<ColumnProps> = ({ title, headingColor, cards, status, set
   const filteredCards = cards.filter((c) => c.status === status);
   
   return (
-    <div className="w-56  shrink-0">
+    <div className="max-w-[14rem] min-w-56">
       <div className="mb-3 flex items-center justify-between">
         <h3 className={`font-medium ${headingColor}`}>{title}</h3>
         <span className="rounded text-sm text-neutral-400">{filteredCards.length}</span>
@@ -123,7 +130,12 @@ const Column: React.FC<ColumnProps> = ({ title, headingColor, cards, status, set
         }`}
       >
         {filteredCards.map((c) => (
-          <CardComponent key={c.id} {...c} handleDragStart={handleDragStart} />
+          <CardComponent key={c.id} {...c} 
+            handleDragStart={handleDragStart} 
+            handleSaveChange={handleSaveChange} 
+            setDragLock={setDragLock}
+            dragLock={dragLock}
+             />
         ))}
         <DropIndicator beforeId={null} status={status} />
         <AddCard status={status} setCards={setCards}   />
