@@ -1,17 +1,3 @@
-// export interface Card {
-//   title: string;
-//   id: string;
-//   column: string;
-// }
-export interface Card {
-  id: string;
-  title: string;
-  status: string;
-  priority: string;
-  startDate: string;
-  endDate: string;
-  // column: string;
-}
 
 export interface ColumnProps {
   title: string;
@@ -22,3 +8,26 @@ export interface ColumnProps {
   dragLock: boolean;
   setCards: React.Dispatch<React.SetStateAction<Card[]>>;
 }
+export interface Card {
+  id: string;
+  title: string;
+  status: string;
+  priority: string;
+  startDate: string;
+  endDate: string;
+  createBy?:string;
+}
+
+
+
+export interface Login {
+  username:string;
+  password:string;
+}
+
+export interface Register {
+  username :string ;
+	email    :string ;
+	roleName :string ;
+	password :string ;
+};

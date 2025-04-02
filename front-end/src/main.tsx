@@ -4,7 +4,7 @@ import './styles/index.css'
 import AppRoutes from "./routes";
 
 createRoot(document.getElementById('root')!).render(
-  <StrictMode>
+  // <StrictMode>
     <AppRoutes />
-  </StrictMode>,
+  // </StrictMode>,
 )

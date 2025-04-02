@@ -3,6 +3,9 @@ import React, { useState } from "react";
 import { FiTrash } from "react-icons/fi";
 import { FaFire } from "react-icons/fa";
 import { Card } from "../constant/types";
+import { UseTask } from "../hook/useTask";
+import { useAlert } from "../context/AlertContext";
+
 
 interface BurnBarrelProps {
   setCards: React.Dispatch<React.SetStateAction<Card[]>>;
@@ -12,16 +15,32 @@ interface BurnBarrelProps {
 
 const BurnBarrel: React.FC<BurnBarrelProps> = ({ setCards,dragLock }) => {
   const [active, setActive] = useState(false);
+  const { deleteTask } = UseTask();
+  const { showAlert } = useAlert();
 
   const handleDragOver = (e: React.DragEvent) => {
     e.preventDefault();
     setActive(true);
   };
 
-  const handleDragEnd = (e: React.DragEvent) => {
+  const handleDragEnd = async (e: React.DragEvent) => {
     const cardId = e.dataTransfer.getData("cardId");
-    setCards((prev) => prev.filter((c) => c.id !== cardId));
-    setActive(false);
+    try {
+      const response = await deleteTask(cardId)
+      if (response.success ){
+        showAlert(response.message, "success")
+        setCards((prev) => prev.filter((c) => c.id !== cardId));
+      }else{
+        showAlert(response.message, "error")
+      }
+    } catch (err) {
+      console.log(err);
+      
+    }finally{
+      setActive(false);
+    }
+   
+    
   };
 
   const handleDragLeave = () => {
@@ -33,7 +52,7 @@ const BurnBarrel: React.FC<BurnBarrelProps> = ({ setCards,dragLock }) => {
       onDrop={handleDragEnd}
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
-      className={`mt-10 flex h-56 w-full max-w-[14rem] shrink-0 items-center justify-center rounded border text-3xl 
+      className={`mt-10 flex max-h-[10rem]  w-full max-w-[10rem] shrink-0 items-center justify-center rounded border text-3xl 
       transition-all duration-300 ease-in-out cursor-pointer
       ${
         active && !dragLock

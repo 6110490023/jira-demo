@@ -5,6 +5,8 @@ import { motion } from "framer-motion";
 import { Card } from "../constant/types";
 
 import { PRIORITY } from "../constant/typeCard";
+import { UseTask } from "../hook/useTask";
+import { useAlert } from "../context/AlertContext";
 
 interface AddCardProps {
   status: string;
@@ -12,34 +14,50 @@ interface AddCardProps {
 }
 
 const AddCard: React.FC<AddCardProps> = ({ status, setCards }) => {
+  const { createTask } = UseTask();
+  const { showAlert } = useAlert();
   const [text, setText] = useState<string>("");
   const [priority, setPriority] = useState<string>(PRIORITY.LOW);
   const [startDate, setStartDate] = useState<string>(new Date().toISOString().split('T')[0])
   const [endDate, setEndDate] = useState<string>(new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0])
   const [adding, setAdding] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!text.trim()) return;
-
-    setCards((prev) => [
-      ...prev,
-      {
-        id: ((prev.length) + 1).toString(), // หรือใช้ uuid() ถ้าติดตั้งไลบรารี uuid
+    try {
+      const newCard : Card = {
+        id:"00000000-0000-0000-0000-000000000000",
         title: text.trim(),
         status,
         priority: priority, // ค่าเริ่มต้น
         startDate: startDate, // วันที่ปัจจุบัน
         endDate: endDate, // +7 วัน
+        createBy:"4c26c440-bb38-4683-936a-0756f6ab12f5"
       }
-    ]);
-    setAdding(false);
-    setText("")
-    setPriority(PRIORITY.LOW)
-    setStartDate(new Date().toISOString().split('T')[0])
-    setEndDate(new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0])
+      const response = await createTask(newCard)
+      if (response.success ){
+        newCard.id = response.result
+        setCards((prev) => [
+          ...prev,
+          newCard
+        ]);
+        setAdding(false);
+        setText("")
+        setPriority(PRIORITY.LOW)
+        setStartDate(new Date().toISOString().split('T')[0])
+        setEndDate(new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0])
+        showAlert(response.message,"success")  
+  
+      }else{
+        showAlert(response.message,"error")  
+      }
+          }catch (error){
+      showAlert("การเชื่อมต่อมีปัญหา ไม่สามารถสร้างได้","error")
+    }
+    
   };
-  const handleClose=()=>{
+  const handleClose = () => {
     setAdding(false)
     setText("")
     setPriority(PRIORITY.LOW)
@@ -60,7 +78,7 @@ const AddCard: React.FC<AddCardProps> = ({ status, setCards }) => {
           placeholder="title"
           value={text}
           onChange={(e) => setText(e.target.value)}
-          className="text-sm text-neutral-100 font-bold p-1 bg-neutral-700 rounded mb-2"
+          className="text-sm w-full text-neutral-100 font-bold p-1 bg-neutral-700 rounded mb-2"
         />
         <div>
           <p className="text-sm text-gray-400 pt-1 pb-1">Status: {status}</p>
@@ -70,7 +88,7 @@ const AddCard: React.FC<AddCardProps> = ({ status, setCards }) => {
             name="priority"
             value={priority}
             onChange={(e) => setPriority(e.target.value)}
-            className="text-sm text-yellow-400 p-1 bg-neutral-700 rounded mb-2"
+            className="text-sm w-full text-yellow-400 p-1 bg-neutral-700 rounded mb-2"
           >
             <option value={PRIORITY.LOW}>{PRIORITY.LOW}</option>
             <option value={PRIORITY.MEDIUM}>{PRIORITY.MEDIUM}</option>
@@ -85,7 +103,7 @@ const AddCard: React.FC<AddCardProps> = ({ status, setCards }) => {
             placeholder="startDate"
             value={startDate}
             onChange={(e) => { setStartDate(e.target.value) }}
-            className="text-sm text-green-400 p-1 bg-neutral-700 rounded mb-2"
+            className="text-sm w-full text-green-400 p-1 bg-neutral-700 rounded mb-2"
           />
 
         </div>
@@ -96,14 +114,14 @@ const AddCard: React.FC<AddCardProps> = ({ status, setCards }) => {
             placeholder="endDate"
             value={endDate}
             onChange={(e) => { setEndDate(e.target.value) }}
-            className="text-sm text-red-400 p-1 bg-neutral-700 rounded mb-2"
+            className="text-sm w-full text-red-400 p-1 bg-neutral-700 rounded mb-2"
           />
 
         </div>
       </div>
       <div className="mt-1.5 flex items-center justify-end gap-1.5">
         <button
-          onClick={() =>{handleClose()} }
+          onClick={() => { handleClose() }}
           className="px-3 py-1.5 text-xs text-neutral-400 transition-colors hover:text-neutral-50"
         >
           Close

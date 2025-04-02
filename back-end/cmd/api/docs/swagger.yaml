@@ -1,0 +1,257 @@
+basePath: /api
+definitions:
+  domain.RegisTerUser:
+    properties:
+      Password:
+        type: string
+      email:
+        type: string
+      roleName:
+        type: string
+      username:
+        type: string
+    type: object
+  domain.ResponeGetTask:
+    properties:
+      createBy:
+        type: string
+      endDate:
+        type: string
+      id:
+        type: string
+      priority:
+        type: string
+      startDate:
+        type: string
+      status:
+        type: string
+      title:
+        type: string
+    type: object
+  domain.User:
+    properties:
+      email:
+        type: string
+      id:
+        type: string
+      roleName:
+        type: string
+      username:
+        type: string
+    type: object
+  domain.UserLoginRequest:
+    properties:
+      password:
+        type: string
+      username:
+        type: string
+    type: object
+  main.Response:
+    properties:
+      message:
+        type: string
+      result: {}
+      success:
+        type: boolean
+    type: object
+info:
+  contact: {}
+  description: This is a sample server Petstore server.
+  title: jiraDemoAPI
+  version: "1.0"
+paths:
+  /task/create:
+    post:
+      consumes:
+      - application/json
+      description: Create Task
+      parameters:
+      - description: create task
+        in: body
+        name: responeGetTask
+        required: true
+        schema:
+          $ref: '#/definitions/domain.ResponeGetTask'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: task id
+          schema:
+            allOf:
+            - $ref: '#/definitions/main.Response'
+            - properties:
+                result:
+                  type: string
+              type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/main.Response'
+      security:
+      - BearerAuth: []
+      summary: Get all products
+      tags:
+      - Task
+  /task/delete-by-id:
+    patch:
+      consumes:
+      - application/json
+      description: Delete Task
+      parameters:
+      - description: delete task
+        in: body
+        name: responeGetTask
+        required: true
+        schema:
+          $ref: '#/definitions/domain.ResponeGetTask'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: result data
+          schema:
+            allOf:
+            - $ref: '#/definitions/main.Response'
+            - properties:
+                result:
+                  type: string
+              type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/main.Response'
+      security:
+      - BearerAuth: []
+      summary: Get all products
+      tags:
+      - Task
+  /task/get-all:
+    get:
+      consumes:
+      - application/json
+      description: Get All Task
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: task list
+          schema:
+            allOf:
+            - $ref: '#/definitions/main.Response'
+            - properties:
+                result:
+                  items:
+                    $ref: '#/definitions/domain.ResponeGetTask'
+                  type: array
+              type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/main.Response'
+      security:
+      - BearerAuth: []
+      summary: Get all products
+      tags:
+      - Task
+  /task/update-by-id:
+    patch:
+      consumes:
+      - application/json
+      description: Update Task
+      parameters:
+      - description: update task
+        in: body
+        name: responeGetTask
+        required: true
+        schema:
+          $ref: '#/definitions/domain.ResponeGetTask'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: result data
+          schema:
+            allOf:
+            - $ref: '#/definitions/main.Response'
+            - properties:
+                result:
+                  type: string
+              type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/main.Response'
+      security:
+      - BearerAuth: []
+      summary: Get all products
+      tags:
+      - Task
+  /user/login:
+    post:
+      consumes:
+      - application/json
+      description: Get All Task
+      parameters:
+      - description: login data
+        in: body
+        name: userLogin
+        required: true
+        schema:
+          $ref: '#/definitions/domain.UserLoginRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: token jwt
+          schema:
+            allOf:
+            - $ref: '#/definitions/main.Response'
+            - properties:
+                result:
+                  type: string
+              type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/main.Response'
+      summary: Get all products
+      tags:
+      - User
+  /user/register:
+    post:
+      consumes:
+      - application/json
+      description: Update Task
+      parameters:
+      - description: register user
+        in: body
+        name: register
+        required: true
+        schema:
+          $ref: '#/definitions/domain.RegisTerUser'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: result data
+          schema:
+            allOf:
+            - $ref: '#/definitions/main.Response'
+            - properties:
+                result:
+                  $ref: '#/definitions/domain.User'
+              type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/main.Response'
+      summary: Get all products
+      tags:
+      - User
+securityDefinitions:
+  BearerAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

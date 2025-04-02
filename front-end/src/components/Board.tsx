@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Column from "./Column";
 import BurnBarrel from "./BurnBarrel";
 import { Card } from "../constant/types";
@@ -10,12 +10,8 @@ interface BoadProps {
 }
 const Board: React.FC<BoadProps> = ({ cards, setCards }) => {
   const [dragLock, setDragLock] = useState(false);
-  useEffect(() => {
-    console.log(cards);
-
-  }, [cards])
   return (
-    <div className="flex w-full gap-3  p-12">
+    <div className="flex xs:flex-wrap  w-full  gap-3 p-12">
       <Column
         title="Backlog"
         status={STATUS_CARD.BACKLOG}

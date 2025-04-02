@@ -30,7 +30,8 @@ const CardComponent: React.FC<CardProps> = (
       status: status,
       priority: priority,
       startDate: startDate,
-      endDate: endDate
+      endDate: endDate,
+      
     }
   )
   const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -83,7 +84,7 @@ const CardComponent: React.FC<CardProps> = (
             placeholder="title"
             value={card.title}
             onChange={handleChangeInput}
-            className="text-sm text-neutral-100 font-bold p-1 bg-neutral-700 rounded mb-2"
+            className="text-sm w-full text-neutral-100 font-bold p-1 bg-neutral-700 rounded mb-2"
           />
           <p className="text-sm text-gray-400pl-3 pt-1 pb-1">Status: {status}</p>
           <div >
@@ -93,7 +94,7 @@ const CardComponent: React.FC<CardProps> = (
               name="priority"
               value={card.priority}
               onChange={handleChangeSelect}
-              className="text-sm text-yellow-400 p-1 bg-neutral-700 rounded mb-2"
+              className="text-sm w-full text-yellow-400 p-1 bg-neutral-700 rounded mb-2"
             >
               <option value={PRIORITY.LOW}>{PRIORITY.LOW}</option>
               <option value={PRIORITY.MEDIUM}>{PRIORITY.MEDIUM}</option>
@@ -108,7 +109,7 @@ const CardComponent: React.FC<CardProps> = (
               placeholder="startDate"
               value={card.startDate}
               onChange={handleChangeInput}
-              className="text-sm text-green-400 p-1 bg-neutral-700 rounded mb-2"
+              className="text-sm w-full text-green-400 p-1 bg-neutral-700 rounded mb-2"
             />
           </div>
           <div>
@@ -118,7 +119,7 @@ const CardComponent: React.FC<CardProps> = (
               placeholder="endDate"
               value={card.endDate}
               onChange={handleChangeInput}
-              className="text-sm text-red-400 p-1 bg-neutral-700 rounded mb-2"
+              className="text-sm w-full text-red-400 p-1 bg-neutral-700 rounded mb-2"
             />
           </div>
 
