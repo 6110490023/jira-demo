@@ -3,7 +3,7 @@ import { AlertProvider } from "./context/AlertContext";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import NotFound from "./pages/Notfound";
+import NotFound from "./pages/NotFound";
 const AppRoutes = () => {
   return (
     <AlertProvider>
