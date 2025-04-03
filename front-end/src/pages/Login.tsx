@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { UseAuth } from "../hook/useAuth";
 import { useNavigate } from "react-router-dom";
 // import Cookies from "js-cookie";
-import {setCookies,getCookies} from "../store/useCookies"
+import { setCookies, getCookies } from "../store/useCookies"
 
 import { useAlert } from "../context/AlertContext";
 
@@ -19,6 +19,9 @@ const Login: React.FC = () => {
             showAlert("คุณได้ทำการ login เเล้ว", "info")
         }
     }, []);
+    const handleRegister = () => {
+        navigate("/");
+    }
 
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -77,7 +80,12 @@ const Login: React.FC = () => {
                     >
                         Login
                     </button>
+
                 </form>
+                <div className="flex w-full mt-3" >
+                    <button className="text-blue-500 ml-auto" onClick={() => { handleRegister() }}>go to register</button>
+
+                </div>
             </div>
         </div>
     );
