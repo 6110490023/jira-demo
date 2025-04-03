@@ -7,8 +7,8 @@ import NotFound from "./pages/Notfound";
 const AppRoutes = () => {
   return (
     <AlertProvider>
-    <Router>
-      <Routes>
+    <Router basename="/">
+      <Routes >
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
