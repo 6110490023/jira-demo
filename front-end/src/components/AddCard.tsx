@@ -7,7 +7,8 @@ import { Card } from "../constant/types";
 import { PRIORITY } from "../constant/typeCard";
 import { UseTask } from "../hook/useTask";
 import { useAlert } from "../context/AlertContext";
-
+import { DecodeJwt } from "../services/jwtService";
+import { getCookies } from "../store/useCookies";
 interface AddCardProps {
   status: string;
   setCards: React.Dispatch<React.SetStateAction<Card[]>>;
@@ -21,9 +22,11 @@ const AddCard: React.FC<AddCardProps> = ({ status, setCards }) => {
   const [startDate, setStartDate] = useState<string>(new Date().toISOString().split('T')[0])
   const [endDate, setEndDate] = useState<string>(new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0])
   const [adding, setAdding] = useState(false);
-
   const handleSubmit = async (e: React.FormEvent) => {
+
     e.preventDefault();
+    const token = getCookies("authToken");
+    const userlogin = DecodeJwt(token)
     if (!text.trim()) return;
     try {
       const newCard : Card = {
@@ -33,7 +36,7 @@ const AddCard: React.FC<AddCardProps> = ({ status, setCards }) => {
         priority: priority, // ค่าเริ่มต้น
         startDate: startDate, // วันที่ปัจจุบัน
         endDate: endDate, // +7 วัน
-        createBy:"4c26c440-bb38-4683-936a-0756f6ab12f5"
+        createBy:userlogin?.id
       }
       const response = await createTask(newCard)
       if (response.success ){

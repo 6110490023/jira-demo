@@ -18,7 +18,7 @@ func (app *Application) routes() http.Handler {
 	router := chi.NewRouter()
 	//CORS Middleware
 	cors := cors.New(cors.Options{
-		AllowedOrigins:   []string{"http://localhost:3000", "https://jira-demo-front.onrender.com"},
+		AllowedOrigins:   []string{"http://localhost:10000", "https://jira-demo-front.onrender.com"},
 		AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"},
 		AllowedHeaders:   []string{"X-PINGOTHER", "Accept", "Authorization", "Content-Type", "X-CSRF-Token"},
 		ExposedHeaders:   []string{"Link"},

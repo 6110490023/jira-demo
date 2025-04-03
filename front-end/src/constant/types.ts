@@ -18,6 +18,12 @@ export interface Card {
   createBy?:string;
 }
 
+export interface UserLoin {
+  id :string;
+  username:string;
+  email:string;
+  roleName:string;
+}
 
 
 export interface Login {
