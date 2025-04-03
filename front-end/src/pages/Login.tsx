@@ -20,7 +20,7 @@ const Login: React.FC = () => {
         }
     }, []);
     const handleRegister = () => {
-        navigate("/");
+        navigate("/register");
     }
 
     const handleLogin = async (e: React.FormEvent) => {
