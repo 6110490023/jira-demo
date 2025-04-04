@@ -69,7 +69,7 @@ const Register: React.FC = () => {
                             type="text"
                             id="username"
                             placeholder="Username"
-                            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
+                            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black bg-white"
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
                             required
@@ -82,7 +82,7 @@ const Register: React.FC = () => {
                             type="email"
                             id="email"
                             placeholder="Email"
-                            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
+                            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black bg-white"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             required
@@ -95,7 +95,7 @@ const Register: React.FC = () => {
                             type="password"
                             id="password"
                             placeholder="Password"
-                            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
+                            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black bg-white"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             required
@@ -108,7 +108,7 @@ const Register: React.FC = () => {
                             type="password"
                             id="confirmPassword"
                             placeholder="Confirm Password"
-                            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
+                            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black bg-white"
                             value={confirmPassword}
                             onChange={(e) => setConfirmPassword(e.target.value)}
                             required
@@ -119,7 +119,7 @@ const Register: React.FC = () => {
                         <label htmlFor="role" className="block text-gray-600 mb-2">Role</label>
                         <select
                             id="role"
-                            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
+                            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black bg-white"
                             value={roleName}
                             onChange={(e) => setRoleName(e.target.value)}
                             required
